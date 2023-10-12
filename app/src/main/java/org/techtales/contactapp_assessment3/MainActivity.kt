@@ -60,27 +60,27 @@ class MainActivity : AppCompatActivity() {
 
     private suspend fun displayData(student: Person) {
         withContext(Dispatchers.Main) {
-            binding.firstName.setText(student.firstName.toString())
-            binding.lastName.setText(student.lastName.toString())
-            binding.rollNbr.setText(student.rollNo.toString())
+            binding.nameEtxt.setText(student.name.toString())
+            binding.phoneEtxt.setText(student.phone.toString())
+            binding.emailEtxt.setText(student.email.toString())
 
         }
     }
 
     @OptIn(DelicateCoroutinesApi::class)
     private fun saveData() {
-        val firstName = binding.firstName.text.toString()
-        val lastName = binding.lastName.text.toString()
-        val rollNo = binding.rollNbr.text.toString()
+        val name = binding.nameEtxt.text.toString()
+        val phone = binding.phoneEtxt.text.toString()
+        val email = binding.emailEtxt.text.toString()
 
-        if (firstName.isNotEmpty() && lastName.isNotEmpty() && rollNo.isNotEmpty()) {
-            val student = Person(null, firstName, lastName, rollNo.toInt())
+        if (name.isNotEmpty() && phone.isNotEmpty() && email.isNotEmpty()) {
+            val student = Person(null, name, phone.toInt(), email.toString())
             GlobalScope.launch(Dispatchers.IO) {
-                PersonDatabase.C.insert((student))
+                PersonDatabase.ContactDao.insert((student))
             }
-            binding.firstName.text.clear()
-            binding.lastName.text.clear()
-            binding.rollNbr.text.clear()
+            binding.nameEtxt.text.clear()
+            binding.phoneEtxt.text.clear()
+            binding.emailEtxt.text.clear()
 
             Toast.makeText(this@MainActivity, "Data saved", Toast.LENGTH_SHORT).show()
         } else {

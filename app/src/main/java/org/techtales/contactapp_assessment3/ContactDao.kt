@@ -11,7 +11,7 @@ interface ContactDao {
     @Query("SELECT * FROM contact_table")
     fun getAll(): List<Person>
 
-    @Query("SELECT * FROM contact_table WHERE roll_no LIKE :roll LIMIT 1")
+    @Query("SELECT * FROM contact_table WHERE phone_no LIKE :roll LIMIT 1")
     suspend fun findByRoll(roll: Int): Person
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)

@@ -8,10 +8,10 @@ import androidx.room.PrimaryKey
 data class Person(
     @PrimaryKey(autoGenerate = true)
     val id:Int?,
-    @ColumnInfo(name = "first_name")
-    val firstName:String,
-    @ColumnInfo(name = "last_name")
-    val lastName:String,
-    @ColumnInfo(name = "roll_no")
-    val rollNo:Int?
+    @ColumnInfo(name = "name")
+    val name:String?,
+    @ColumnInfo(name = "phone_no")
+    val phone:Int?,
+    @ColumnInfo(name = "email")
+    val email:String?
 )
