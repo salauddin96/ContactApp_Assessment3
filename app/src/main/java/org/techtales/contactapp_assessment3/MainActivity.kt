@@ -13,14 +13,14 @@ import kotlinx.coroutines.withContext
 import org.techtales.contactapp_assessment3.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var studentDatabase: PersonDatabase
+    private lateinit var personDatabase: PersonDatabase
     private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         binding = ActivityMainBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        studentDatabase = PersonDatabase.getDatabase(this)
+        personDatabase = PersonDatabase.getDatabase(this)
         binding.save.setOnClickListener {
             saveData()
         }
@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
         }
         binding.deleteAll.setOnClickListener {
             GlobalScope.launch {
-                studentDatabase.ContactDao().deleteAll()
+                personDatabase.ContactDao().deleteAll()
             }
         }
 
@@ -40,10 +40,10 @@ class MainActivity : AppCompatActivity() {
     private fun searchData() {
         val rollNo = binding.searchEtx.text.toString()
         if (rollNo.isNotEmpty()) {
-            lateinit var student: Person
+            lateinit var person: Person
             GlobalScope.launch {
-                student = (studentDatabase.ContactDao().findByRoll(rollNo.toInt()))
-                if (studentDatabase.ContactDao().isEmpty())
+                person = (personDatabase.ContactDao().findByRoll(rollNo.toInt()))
+                if (personDatabase.ContactDao().isEmpty())
                     Handler(Looper.getMainLooper()).post {
                         Toast.makeText(
                             this@MainActivity,
@@ -52,7 +52,7 @@ class MainActivity : AppCompatActivity() {
                         ).show()
                     }
                 else {
-                    displayData(student)
+                    displayData(person)
                 }
             }
         }
